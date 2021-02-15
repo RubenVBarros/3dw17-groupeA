@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+{% block import_css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock %}
+
+<title>Modifier un sujet</title>
+
+{% block body %}
+    <h1>Modifier le Sujet n°{{sujet.id}} :</h1>
+
+    {{ include('sujet/_form.html.twig', {'button_label': 'Mettre à jour le sujet'}) }}
+
+    <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
+
+    {{ include('sujet/_delete_form.html.twig') }}
+{% endblock %}

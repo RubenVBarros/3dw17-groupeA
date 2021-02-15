@@ -23,7 +23,7 @@ class Sujet
     private $auteur;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $datePost;
 

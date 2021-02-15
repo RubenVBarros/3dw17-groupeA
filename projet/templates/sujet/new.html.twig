@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% block import_css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock %}
+
+<title>Créer un Sujet</title>
+
+{% block body %}
+    <h1>Créer un nouveau Sujet :</h1>
+
+    {{ include('sujet/_form.html.twig') }}
+
+    <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
+{% endblock %}

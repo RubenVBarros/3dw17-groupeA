@@ -23,7 +23,7 @@ class Signalement
     private $etat;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $date;
 
@@ -36,7 +36,7 @@ class Signalement
      * @ORM\Column(type="string", length=255)
      */
     private $auteur;
-
+    
     public function getId(): ?int
     {
         return $this->id;
