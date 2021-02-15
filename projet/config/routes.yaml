@@ -2,7 +2,6 @@ index:
     path: /
     controller: App\Controller\HomeController::index
     #Cette route est la route principale la page d'accueil du site
-
 login:
     path: /login
     controller: App\Controller\SecurityController::login

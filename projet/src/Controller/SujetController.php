@@ -18,6 +18,7 @@ class SujetController extends AbstractController
 {
     /**
      * @Route("/show", name="sujet_index", methods={"GET"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function index(SujetRepository $sujetRepository): Response
     {
