@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 
-<title>Hello SignalementController!</title>
+{% block import_css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Accueil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/sujet">Forum <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="/admin/dashboard/" class="nav-link">Dashboard</a>
+            {% endif %}
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-1">
+        <li class="nav-item active">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="/login" class="nav-link">Se connecter</a>
+            {% else %}
+            <a href="/register" class="nav-link">Créer un compte</a>
+            {% endif %}
+        </li>
+      </ul>
+    </div>
+</nav>
+
+<title>Signalement d'un sujet</title>
 
 {% block body %}
 <style>
@@ -9,12 +41,9 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ruben/3dw22-groupeA/projet/src/Controller/SignalementController.php'|file_link(0) }}">src/Controller/SignalementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ruben/3dw22-groupeA/projet/templates/signalement/index.html.twig'|file_link(0) }}">templates/signalement/index.html.twig</a></code></li>
-    </ul>
+    <h1>Voulez vous vraiment signaler le sujet sélectionné ?</h1>
+    <button type="button" class="btn btn-warning">Signaler le sujet</button><br>
+    <a href="{{ path('sujet_index') }}">Annuler et retourner à la liste des sujets</a>
+    
 </div>
 {% endblock %}
