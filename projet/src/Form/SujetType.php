@@ -12,8 +12,7 @@ class SujetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('auteur')
-            ->add('datePost')
+            ->add('titre')
         ;
     }
 

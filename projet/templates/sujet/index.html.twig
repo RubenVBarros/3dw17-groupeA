@@ -13,15 +13,17 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Titre</th>
                 <th>Auteur</th>
                 <th>DatePost</th>
-                <th>Actions</th>
+                <th>Actions Disponible</th>
             </tr>
         </thead>
         <tbody>
         {% for sujet in sujets %}
             <tr>
                 <td>{{ sujet.id }}</td>
+                <td>{{ sujet.titre }}</td>
                 <td>{{ sujet.auteur }}</td>
                 <td>{{ sujet.datePost ? sujet.datePost|date('Y-m-d') : '' }}</td>
                 <td>

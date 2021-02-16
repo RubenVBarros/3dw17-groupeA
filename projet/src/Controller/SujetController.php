@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class SujetController extends AbstractController
 {
     /**
-     * @Route("/show", name="sujet_index", methods={"GET"})
+     * @Route("/", name="sujet_index", methods={"GET"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function index(SujetRepository $sujetRepository): Response
@@ -36,9 +36,11 @@ class SujetController extends AbstractController
         $sujet = new Sujet();
         $form = $this->createForm(SujetType::class, $sujet);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $sujet->setAuteur($user);
             $entityManager->persist($sujet);
             $entityManager->flush();
 
