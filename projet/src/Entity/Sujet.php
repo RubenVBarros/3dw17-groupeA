@@ -35,6 +35,11 @@ class Sujet
      */
     private $auteur;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $message;
+
     public function __construct()
     {
         $this->datePost = new \DateTime();
@@ -77,6 +82,18 @@ class Sujet
     public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): self
+    {
+        $this->message = $message;
 
         return $this;
     }
