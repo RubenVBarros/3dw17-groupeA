@@ -4,14 +4,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% endblock %}
 
-<title>Accueil</title>
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,13 +32,36 @@
     </div>
 </nav>
 
-<div class="example-wrapper">
-    <h1>Bienvenue sur le site! ✅</h1>
+<title>Dashboard Admin</title>
 
-    N'oubliez pas d'aller créer un compte ou de vous connecter sinons vous ne pourrez pas aller sur le forum :
-    <ul>
-        <li>Aller vous créer un compte -><a href="/register">Création de compte</a></li><br>
-        <li>Aller vous connectez -><a href="/login">Connexion</a></li>
-    </ul>
-</div>
+{% block body %}
+    <h1>Liste des utilisateurs :</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Email</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+            <tr>
+                <td>{{ u.username }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.nom }}</td>
+                <td>{{ u.prenom }}</td>
+                <td>{{ u.adresse }}</td>
+                <td>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun utilisateurs trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
