@@ -27,6 +27,19 @@
     </table>
 
     <p>{{sujet.message}}</p>
+    <h1>Commentaires</h1>
+    {% for commentaire in commentaires %}
+        <p>{{commentaire.auteur.username}} : {{ commentaire.contenu }}</p>
+    {% endfor %}
+    <h1>Ajouter un commentaire</h1>
+    {{form(form)}}
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
     <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
 
     <a href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>

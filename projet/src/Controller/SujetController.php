@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Sujet;
+use App\Entity\Commentaire;
 use App\Form\SujetType;
+use App\Form\CommentaireType;
 use App\Repository\SujetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,13 +56,31 @@ class SujetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="sujet_show", methods={"GET"})
+     * @Route("/{id}", name="sujet_show", methods={"GET","POST"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function show(Sujet $sujet): Response
-    {
+    public function show(Request $request, Sujet $sujet): Response
+    {   
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $commentaire = $form->getData();
+
+            $commentaire->setSujet($sujet);
+            $commentaire->setAuteur($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            $sujet->addCommentaire($commentaire);
+            //return $this->redirectToRoute("sujet_show");
+        }
         return $this->render('sujet/show.html.twig', [
             'sujet' => $sujet,
+            'form' => $form->createView(),
+            'commentaires' => $sujet->getCommentaires(),
         ]);
     }
 

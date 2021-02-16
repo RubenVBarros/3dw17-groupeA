@@ -18,9 +18,21 @@ class Commentaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $contenu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $auteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=sujet::class, inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sujet;
 
     public function getId(): ?int
     {
@@ -35,6 +47,30 @@ class Commentaire
     public function setContenu(string $contenu): self
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?user
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?user $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getSujet(): ?sujet
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(?sujet $sujet): self
+    {
+        $this->sujet = $sujet;
 
         return $this;
     }

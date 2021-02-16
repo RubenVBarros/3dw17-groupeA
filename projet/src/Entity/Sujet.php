@@ -40,9 +40,15 @@ class Sujet
      */
     private $message;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="sujet")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->datePost = new \DateTime();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +100,36 @@ class Sujet
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setSujet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getSujet() === $this) {
+                $commentaire->setSujet(null);
+            }
+        }
 
         return $this;
     }
