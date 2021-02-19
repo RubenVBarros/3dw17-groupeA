@@ -35,6 +35,33 @@
 <title>Sujet n°{{sujet.id}}</title>
 
 {% block body %}
+
+<style>
+    h1,a,h4,label{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    p{
+        margin-left: 2%;
+        border-left: 5px solid red;
+        background-color: lightgrey;
+    }
+    .btn{
+        margin:0 auto;
+        display:block;
+    }
+    input,textarea{
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+    }
+    #commentaire_save{
+        margin:0 auto;
+        display:block;
+    }
+</style>
+
     <h1>Sujet n°{{sujet.id}}</h1>
 
     <table class="table">
@@ -51,15 +78,19 @@
                 <th>DatePost</th>
                 <td>{{ sujet.datePost ? sujet.datePost|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ sujet.auteur}}</td>
+            </tr>
         </tbody>
     </table>
 
     <p>{{sujet.message}}</p>
-    <h1>Commentaires</h1>
+    <h4>Commentaires :</h4>
     {% for commentaire in commentaires %}
         <p>{{commentaire.auteur.username}} : {{ commentaire.contenu }}</p>
     {% endfor %}
-    <h1>Ajouter un commentaire</h1>
+    <h4>Ajouter un commentaire :</h4>
     {{form(form)}}
     {% for label, messages in app.flashes(['success', 'warning']) %}
     {% for message in messages %}
@@ -68,9 +99,10 @@
         </div>
     {% endfor %}
 {% endfor %}
+    <br>
     <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
-
+    <br>
     <a href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>
-
+    <br>
     {{ include('sujet/_delete_form.html.twig') }}
 {% endblock %}

@@ -35,11 +35,29 @@
 <title>Modifier un sujet</title>
 
 {% block body %}
+
+<style>
+    a,h1,label{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    input,textarea{
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+    }
+    .btn{
+        margin:0 auto;
+        display:block;
+    }
+</style>
+
     <h1>Modifier le Sujet n°{{sujet.id}} :</h1>
 
     {{ include('sujet/_form.html.twig', {'button_label': 'Mettre à jour le sujet'}) }}
-
+    <br>
     <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
-
+    <br>
     {{ include('sujet/_delete_form.html.twig') }}
 {% endblock %}

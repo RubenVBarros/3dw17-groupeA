@@ -35,9 +35,28 @@
 <title>Créer un Sujet</title>
 
 {% block body %}
+
+<style>
+    a,h1,label{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    input,textarea{
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+    }
+    .btn{
+        margin:0 auto;
+        display:block;
+    }
+</style>
+
     <h1>Créer un nouveau Sujet :</h1>
 
     {{ include('sujet/_form.html.twig') }}
+    <br>
 
     <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
 {% endblock %}

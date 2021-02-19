@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 
+{% block import_css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% endblock %}
+
 <title>Inscrivez-vous !</title>
 
 {% block body %}
+<style>
+    label,h1{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    input{
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+    }
+    .btn{
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1>Créer un compte</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+        {{ form_row(registrationForm.username,{
+            label: 'Identifiant :'
         }) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.adresse) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe :'
+        }) }}
+        {{ form_row(registrationForm.nom,{
+            label: 'Nom :'
+        }) }}
+        {{ form_row(registrationForm.prenom,{
+            label: 'Prenom :'
+        }) }}
+        {{ form_row(registrationForm.email,{
+            label: 'Email :'
+        }) }}
+        {{ form_row(registrationForm.adresse,{
+            label: 'Adresse :'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms,{
+            label: 'Accepter les termes :'
+        }) }}
+        <br>
 
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary">Créer le compte</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
