@@ -18,15 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class SignalementController extends AbstractController
 {
     /**
-     * @Route("/", name="signalement_index", methods={"GET"})
-     */
-    public function index(SignalementRepository $signalementRepository): Response
-    {
-        return $this->render('signalement/index.html.twig', [
-            'signalements' => $signalementRepository->findAll(),
-        ]);
-    }
-    /**
      * @Route("/new/{sujet_id}", name="signalement_new", methods={"GET","POST"})
      * @ParamConverter("sujet", options={"mapping":{"sujet_id":"id"}})
      */
