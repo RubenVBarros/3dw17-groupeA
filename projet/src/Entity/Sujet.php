@@ -45,10 +45,16 @@ class Sujet
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="sujet")
+     */
+    private $signalements;
+
     public function __construct()
     {
         $this->datePost = new \DateTime();
         $this->commentaires = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +134,36 @@ class Sujet
             // set the owning side to null (unless already changed)
             if ($commentaire->getSujet() === $this) {
                 $commentaire->setSujet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signalement[]
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): self
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setSujet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->removeElement($signalement)) {
+            // set the owning side to null (unless already changed)
+            if ($signalement->getSujet() === $this) {
+                $signalement->setSujet(null);
             }
         }
 

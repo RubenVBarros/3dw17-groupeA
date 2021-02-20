@@ -18,30 +18,28 @@ class Signalement
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $etat;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="signalements")
+     */
+    private $auteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sujet::class, inversedBy="signalements")
+     */
+    private $sujet;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
     
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEtat(): ?bool
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(bool $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -52,6 +50,30 @@ class Signalement
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?User
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?User $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getSujet(): ?Sujet
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(?Sujet $sujet): self
+    {
+        $this->sujet = $sujet;
 
         return $this;
     }
