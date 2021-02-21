@@ -82,13 +82,19 @@ class SujetController extends AbstractController
         
         $likes = $em->getLikes($sujet->getId());
         $dislikes = $em->getDislikes($sujet->getId());
-
+        $status = $em->findOne($sujet->getId(),$this->getUser()->getId());
+        $reaction = -1;
+        if($status){
+            $reaction = $status->getEtat() ? 1 : 0;
+        }
+        
         return $this->render('sujet/show.html.twig', [
             'sujet' => $sujet,
             'form' => $form->createView(),
             'commentaires' => $sujet->getCommentaires(),
             'likes'=>$likes,
-            'dislikes'=>$dislikes
+            'dislikes'=>$dislikes,
+            'reaction'=>$reaction
         ]);
     }
 

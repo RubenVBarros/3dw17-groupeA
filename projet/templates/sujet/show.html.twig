@@ -88,10 +88,10 @@
     <p>{{sujet.message}}</p>
 
     <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <a href="{{path('reaction-toggle',{'type':'like','sujet':sujet.id})}}" class="btn btn-outline-success">👍{% if likes > 0 %} {{likes}}{% endif %}</a>
-        <a href="{{path('reaction-toggle',{'type':'dislike','sujet':sujet.id})}}" class="btn btn-outline-danger">👎{% if dislikes > 0 %} {{dislikes}}{% endif %}</a>
+        <a href="{{path('reaction-toggle',{'type':'like','sujet':sujet.id})}}" class="btn btn-outline-success{% if reaction == 1%} active{% endif %}">👍{% if likes > 0 %} {{likes}}{% endif %}</a>
+        <a href="{{path('reaction-toggle',{'type':'dislike','sujet':sujet.id})}}" class="btn btn-outline-danger{% if reaction == 0 %} active{% endif %}">👎{% if dislikes > 0 %} {{dislikes}}{% endif %}</a>
     </div>
-    
+
     <h4>Commentaires :</h4>
     {% for commentaire in commentaires %}
         <p>{{commentaire.auteur.username}} : {{ commentaire.contenu }}</p>
