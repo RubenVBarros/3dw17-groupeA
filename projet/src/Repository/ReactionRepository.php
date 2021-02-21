@@ -18,6 +18,20 @@ class ReactionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Reaction::class);
     }
+    /**
+     * @return Reaction réaction correspondante
+     */
+    public function findOne(int $sujet_id, int $user_id): ?Reaction
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.auteur = :auteur')
+            ->andWhere('r.sujet = :sujet')
+            ->setParameter('auteur',$user_id)
+            ->setParameter('sujet',$sujet_id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     // /**
     //  * @return Reaction[] Returns an array of Reaction objects

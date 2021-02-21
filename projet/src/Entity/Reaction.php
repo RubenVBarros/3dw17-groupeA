@@ -55,12 +55,12 @@ class Reaction
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuteur(): ?User
     {
         return $this->auteur;
     }
 
-    public function setAuthor(?User $auteur): self
+    public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
 
