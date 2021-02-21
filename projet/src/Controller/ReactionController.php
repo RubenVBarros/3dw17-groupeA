@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ReactionRepository;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class ReactionController extends AbstractController
@@ -58,7 +58,8 @@ class ReactionController extends AbstractController
     }
 
     /**
-     * @Route("/reaction/{sujet}/{type}")
+     * @Route("/reaction/{sujet}/{type}", name="reaction-toggle")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function toggleReaction(int $sujet, string $type): Response{
         if($type === "like" || $type === "dislike"){

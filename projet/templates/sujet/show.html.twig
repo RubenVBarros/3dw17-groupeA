@@ -87,8 +87,8 @@
 
     <p>{{sujet.message}}</p>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-success">👍</button>
-        <button type="button" class="btn btn-danger">👎</button>
+        <a href="{{path('reaction-toggle',{'type':'like','sujet':sujet.id})}}" class="btn btn-success">👍</a>
+        <a href="{{path('reaction-toggle',{'type':'dislike','sujet':sujet.id})}}" class="btn btn-danger">👎</a>
     </div>
     <h4>Commentaires :</h4>
     {% for commentaire in commentaires %}
