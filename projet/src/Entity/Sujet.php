@@ -50,11 +50,17 @@ class Sujet
      */
     private $signalements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="sujet")
+     */
+    private $reactions;
+
     public function __construct()
     {
         $this->datePost = new \DateTime();
         $this->commentaires = new ArrayCollection();
         $this->signalements = new ArrayCollection();
+        $this->reactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +170,36 @@ class Sujet
             // set the owning side to null (unless already changed)
             if ($signalement->getSujet() === $this) {
                 $signalement->setSujet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setSujet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getSujet() === $this) {
+                $reaction->setSujet(null);
             }
         }
 

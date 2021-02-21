@@ -86,6 +86,10 @@
     </table>
 
     <p>{{sujet.message}}</p>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-success">👍</button>
+        <button type="button" class="btn btn-danger">👎</button>
+    </div>
     <h4>Commentaires :</h4>
     {% for commentaire in commentaires %}
         <p>{{commentaire.auteur.username}} : {{ commentaire.contenu }}</p>
