@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sujet;
 use App\Entity\Commentaire;
+use App\Entity\Reaction;
 use App\Form\SujetType;
 use App\Form\CommentaireType;
 use App\Repository\SujetRepository;
@@ -65,22 +66,29 @@ class SujetController extends AbstractController
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
         
+        $entityManager = $this->getDoctrine()->getManager();
         if($form->isSubmitted() && $form->isValid()){
             $commentaire = $form->getData();
 
             $commentaire->setSujet($sujet);
             $commentaire->setAuteur($this->getUser());
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
             $sujet->addCommentaire($commentaire);
             //return $this->redirectToRoute("sujet_show");
         }
+        $em = $entityManager->getRepository(Reaction::class);
+        
+        $likes = $em->getLikes($sujet->getId());
+        $dislikes = $em->getDislikes($sujet->getId());
+
         return $this->render('sujet/show.html.twig', [
             'sujet' => $sujet,
             'form' => $form->createView(),
             'commentaires' => $sujet->getCommentaires(),
+            'likes'=>$likes,
+            'dislikes'=>$dislikes
         ]);
     }
 

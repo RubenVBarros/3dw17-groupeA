@@ -32,7 +32,27 @@ class ReactionRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getLikes(int $sujet_id){
+        $qb = $this->createQueryBuilder('r');
 
+        return $qb->select($qb->expr()->count('r'))
+            ->where('r.sujet = :sujet')
+            ->andWhere('r.etat = 1')
+            ->setParameter('sujet',$sujet_id)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }   
+    
+    public function getDislikes(int $sujet_id){
+        $qb = $this->createQueryBuilder('r');
+
+        return $qb->select($qb->expr()->count('r'))
+            ->where('r.sujet = :sujet')
+            ->andWhere('r.etat = 0')
+            ->setParameter('sujet',$sujet_id)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
     // /**
     //  * @return Reaction[] Returns an array of Reaction objects
     //  */
