@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\DateIntervalType;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+use DateInterval;
+
 
 /**
  * @ORM\Entity(repositoryClass=SujetRepository::class)
@@ -205,5 +208,33 @@ class Sujet
         }
 
         return $this;
+    }
+
+    //Fonction pour savoir si l'edit est possibl
+    //Si editPossible == 1 alors l'édit est possible
+    //Sinon l'édit n'est pas possible
+    //A savoir qu'on compte les signalements, les likes ou dislike ou les commentaires et la date de post 
+    //Et si toutes les condition sont réunies alors on Peut ou pas éditer le sujet.
+    public function isPossibleEdit() : bool
+    {
+        //On récup la date de post
+        //Et on fait la différence avec la date d'aujourd'hui
+        //On fait le calcul pour la transformer en minutes 
+        $sujetDate = $this->getDatePost();
+        $d = new \DateTime();
+        $d = $d->diff($sujetDate);
+        $min = $d->days * 24 * 60;
+        $min += $d->h * 60;
+        $min += $d->i;
+
+        $reac = $this->getReactions();
+        $com = $this->getCommentaires();
+        $s = $this->getSignalements();
+
+        // On verifie si les conditions sont réunies pour pouvoir modifier
+        if((count($reac) === 0)  && (count($com) === 0) && (count($s) === 0) && $min < 30) return true;
+        if($sujetDate > $d) return true;
+
+        return false;
     }
 }

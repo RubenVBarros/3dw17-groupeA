@@ -110,7 +110,9 @@
     <br>
     <a href="{{ path('sujet_index') }}">Retour à la liste des sujets</a>
     <br>
+    {% if editPossible == 1 or is_granted('ROLE_ADMIN') %}
     <a href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>
+    {% endif %}
     <br>
     {{ include('sujet/_delete_form.html.twig') }}
 {% endblock %}

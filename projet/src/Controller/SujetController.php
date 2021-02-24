@@ -87,6 +87,8 @@ class SujetController extends AbstractController
         if($status){
             $reaction = $status->getEtat() ? 1 : 0;
         }
+        if ($sujet->isPossibleEdit())$editPossible = 1;
+        else $editPossible = 0;
         
         return $this->render('sujet/show.html.twig', [
             'sujet' => $sujet,
@@ -94,7 +96,8 @@ class SujetController extends AbstractController
             'commentaires' => $sujet->getCommentaires(),
             'likes'=>$likes,
             'dislikes'=>$dislikes,
-            'reaction'=>$reaction
+            'reaction'=>$reaction,
+            'editPossible'=>$editPossible
         ]);
     }
 
@@ -104,6 +107,11 @@ class SujetController extends AbstractController
      */
     public function edit(Request $request, Sujet $sujet): Response
     {
+        if(!($sujet->isPossibleEdit()) || !($sujet->getAuteur() === $this->getUser())) {
+            if(!($this->isGranted('ROLE_ADMIN'))){
+                 return $this->redirectToRoute('sujet_index');
+            }
+        }
         $form = $this->createForm(SujetType::class, $sujet);
         $form->handleRequest($request);
 
