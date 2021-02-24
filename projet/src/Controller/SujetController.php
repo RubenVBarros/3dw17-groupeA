@@ -87,9 +87,6 @@ class SujetController extends AbstractController
         if($status){
             $reaction = $status->getEtat() ? 1 : 0;
         }
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $editPossible = 1;
-        }
         if ($sujet->isPossibleEdit())$editPossible = 1;
         else $editPossible = 0;
         
