@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\ReactionRepository;
 use App\Repository\SujetRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\DateIntervalType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,7 +52,7 @@ class Sujet
     private $signalements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="sujet")
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="sujet",)
      */
     private $reactions;
 

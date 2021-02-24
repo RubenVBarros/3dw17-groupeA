@@ -44,9 +44,13 @@
     <h1>Bienvenue sur le site! ✅</h1>
 
     N'oubliez pas d'aller créer un compte ou de vous connecter sinons vous ne pourrez pas aller sur le forum :
-    <ul>
+    <ul><br>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('ROLE_ADMIN') %}
+        <li>Se deconnecter -> <a href="/logout">Se déconnecter </a></li>
+        {% else %}
         <li>Aller vous créer un compte -><a href="/register">Création de compte</a></li><br>
         <li>Aller vous connectez -><a href="/login">Connexion</a></li>
+        {% endif %}
     </ul>
 </div>
 {% endblock %}

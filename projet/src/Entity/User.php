@@ -74,7 +74,7 @@ class User implements UserInterface
     private $signalements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="auteur")
      */
     private $reactions;
 
@@ -312,9 +312,11 @@ class User implements UserInterface
 
     public function addReaction(Reaction $reaction): self
     {
+        //Il y'avait une erreur la car c'était marqué get et setAuthor
+        //Si erreur remettre setAuthor
         if (!$this->reactions->contains($reaction)) {
             $this->reactions[] = $reaction;
-            $reaction->setAuthor($this);
+            $reaction->setAuteur($this);
         }
 
         return $this;
@@ -324,8 +326,10 @@ class User implements UserInterface
     {
         if ($this->reactions->removeElement($reaction)) {
             // set the owning side to null (unless already changed)
-            if ($reaction->getAuthor() === $this) {
-                $reaction->setAuthor(null);
+            //Il y'avait une erreur la car c'était marqué get et setAuthor
+            //Si erreur remettre setAuthor
+            if ($reaction->getAuteur() === $this) {
+                $reaction->setAuteur(null);
             }
         }
 

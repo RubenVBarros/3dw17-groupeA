@@ -23,10 +23,11 @@
       </ul>
       <ul class="navbar-nav mr-1">
         <li class="nav-item active">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="/login" class="nav-link">Se connecter</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('ROLE_ADMIN') %}
+            <a href="/logout" class="nav-link">Se déconnecter</a>
             {% else %}
             <a href="/register" class="nav-link">Créer un compte</a>
+            <a href="/login" class="nav-link">Se connecter</a>
             {% endif %}
         </li>
       </ul>

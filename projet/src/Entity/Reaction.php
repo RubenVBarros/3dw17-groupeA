@@ -40,8 +40,8 @@ class Reaction
     }
     
     /**
-     * true: Like
-     * false: Dislike
+     * true ou 1: Like
+     * false ou 0: Dislike
      */
     public function getEtat(): ?bool
     {
