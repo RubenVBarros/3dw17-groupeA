@@ -61,13 +61,13 @@
         {% for sujet in sujets %}
             <tr>
                 <td>{{ sujet.id }}</td>
-                <td>{{ sujet.titre }}</td>
+                <td><a href="{{ path('sujet_show', {'id': sujet.id}) }}">{{ sujet.titre }}</a></td>
                 <td>{{ sujet.auteur }}</td>
                 <td>{{ sujet.datePost ? sujet.datePost|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('sujet_show', {'id': sujet.id}) }}">Voir ce sujet</a>
-                    <a href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>
-                    <a href="{{ path('signalement_new', {'sujet_id':sujet.id}) }}">Signaler le sujet</a>
+                    <a class="btn btn-primary" href="{{ path('sujet_show', {'id': sujet.id}) }}">Voir ce sujet</a>
+                    <a class="btn btn-secondary" href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>
+                    <a class="btn btn-warning" href="{{ path('signalement_new', {'sujet_id':sujet.id}) }}">Signaler le sujet</a>
                 </td>
             </tr>
         {% else %}
@@ -78,5 +78,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('sujet_new') }}">Créer un nouveau sujet</a>
+    <a class="btn btn-success" href="{{ path('sujet_new') }}">Créer un nouveau sujet</a>
 {% endblock %}
