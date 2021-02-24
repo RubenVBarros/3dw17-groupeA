@@ -65,8 +65,7 @@
                 <td>{{ sujet.auteur }}</td>
                 <td>{{ sujet.datePost ? sujet.datePost|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('sujet_show', {'id': sujet.id}) }}">Voir ce sujet</a>
-                    <a href="{{ path('sujet_edit', {'id': sujet.id}) }}">Modifier le sujet</a>
+                    <a href="{{ path('sujet_show', {'id': sujet.id}) }}">Voir ce sujet</a><br>
                     <a href="{{ path('signalement_new', {'sujet_id':sujet.id}) }}">Signaler le sujet</a>
                 </td>
             </tr>
